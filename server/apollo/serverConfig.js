@@ -6,6 +6,8 @@ import gqlLoader from './gqlLoader'
 import user from './user'
 import auth from './auth'
 import meeting from './meeting'
+import feature from './feature'
+
 require('./../passportHelper')(passport)
 
 const resolverMap = {
@@ -26,13 +28,15 @@ const serverConfig = {
     gqlLoader('./index.graphql'),
     user.typeDefs,
     auth.typeDefs,
-    meeting.typeDefs
+    meeting.typeDefs,
+    feature.typeDefs
   ].join(' '),
   resolvers: merge(
     {},
     user.resolvers,
     auth.resolvers,
     meeting.resolvers,
+    feature.resolvers,
     resolverMap
   ),
   context: ({ req, connection }) => {
@@ -41,11 +45,13 @@ const serverConfig = {
       logout: connection ? function emptyFunction() {} : req.logout,
       models: {
         User: user.model,
-        Meeting: meeting.model
+        Meeting: meeting.model,
+        Feature: feature.model
       },
       loaders: {
         meetingLoader: meeting.loader,
-        userLoader: user.loader
+        userLoader: user.loader,
+        featureLoader: feature.loader
       }
     }
   }

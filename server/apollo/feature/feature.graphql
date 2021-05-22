@@ -1,0 +1,20 @@
+type Feature {
+  id: ID!
+  name: String
+  stages: [Stage]
+}
+
+input FeatureInput {
+  name: String
+  stages: [ID]
+}
+
+extend type Query {
+  features: [Feature]
+  feature(id: ID!): Feature
+}
+extend type Mutation {
+  addFeature(input: FeatureInput): Feature
+  updateFeature(id: ID!, input: FeatureInput): Feature
+  deleteFeature(id: ID!): ID
+}
