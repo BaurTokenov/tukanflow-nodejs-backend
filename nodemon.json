@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "execMap": {
+    "js": "node -r babel-register"
+  },
+  "watch": ["./server", "./index.js"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js"
+}

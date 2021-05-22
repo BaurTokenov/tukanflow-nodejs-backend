@@ -1,0 +1,18 @@
+type Response {
+  status: String
+  message: String
+}
+
+type Query {
+  emptyQuery: Response
+}
+
+type Mutation {
+  emptyMutation: Response
+}
+
+type Subscription {
+  emptyMutation: Response
+}
+
+scalar DateTime
