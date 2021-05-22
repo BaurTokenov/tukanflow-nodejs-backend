@@ -7,6 +7,7 @@ import user from './user'
 import auth from './auth'
 import meeting from './meeting'
 import feature from './feature'
+import stage from './stage'
 
 require('./../passportHelper')(passport)
 
@@ -29,7 +30,8 @@ const serverConfig = {
     user.typeDefs,
     auth.typeDefs,
     meeting.typeDefs,
-    feature.typeDefs
+    feature.typeDefs,
+    stage.typeDefs
   ].join(' '),
   resolvers: merge(
     {},
@@ -37,6 +39,7 @@ const serverConfig = {
     auth.resolvers,
     meeting.resolvers,
     feature.resolvers,
+    stage.resolvers,
     resolverMap
   ),
   context: ({ req, connection }) => {
@@ -46,12 +49,14 @@ const serverConfig = {
       models: {
         User: user.model,
         Meeting: meeting.model,
-        Feature: feature.model
+        Feature: feature.model,
+        Stage: stage.model
       },
       loaders: {
         meetingLoader: meeting.loader,
         userLoader: user.loader,
-        featureLoader: feature.loader
+        featureLoader: feature.loader,
+        stageLoader: stage.loader
       }
     }
   }

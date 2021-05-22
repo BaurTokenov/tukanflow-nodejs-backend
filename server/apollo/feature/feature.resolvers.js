@@ -49,6 +49,13 @@ module.exports = {
   Feature: {
     id(feature) {
       return `${feature._id}`
+    },
+    async stages(feature, _, ctx) {
+      if (!feature.stages) return []
+      const stages = await ctx.loaders.stageLoader.loadMany(
+        feature.stages.filter(stage => stage != null)
+      )
+      return stages
     }
   }
 }
