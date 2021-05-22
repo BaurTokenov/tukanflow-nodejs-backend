@@ -1,0 +1,165 @@
+{
+  // Place your wunder-server-admin workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "fieldResolver": {
+    "prefix": "fieldResolver",
+    "body": [
+      "async ${1:fieldName}(${2:modelNameSmall}, _, { models: { ${3:modelNameBig} } }) {",
+      "\tconst item = await ${3:modelNameBig}.findById(${2:modelNameSmall}._id,\"${1:fieldName}\")",
+      "\treturn item ? item.${1:fieldName} : null",
+      "},"
+    ]
+  },
+  "mutationAddModel": {
+    "prefix": "mutationAdd",
+    "body": [
+      "async add${1:modelNameBig}(_, { input }, { models: { ${1:modelNameBig} } }) {",
+      "\ttry {",
+      "\t\tconst ${2:modelNameSmall} = await new ${1:modelNameBig}(input);",
+      "\t\tawait ${2:modelNameSmall}.save();",
+      "\t\treturn ${2:modelNameSmall};",
+      "\t} catch (error) {",
+      "\t\tthrow error;",
+      "\t}",
+      "}"
+    ]
+  },
+  "mutationUpdateModel": {
+    "prefix": "mutationUpd",
+    "body": [
+      "async update${1:modelNameBig}(_, { input, id }, {models: { ${1:modelNameBig} }}) {",
+      "\ttry {",
+      "\t\tconst ${2:modelNameSmall} = await ${1:modelNameBig}.findOneAndUpdate({ _id: id }, input, {new: true}).exec()",
+      "\t\treturn ${2:modelNameSmall};",
+      "\t} catch (error) {",
+      "\t\tthrow error;",
+      "\t}",
+      "}"
+    ]
+  },
+  "mutationDeleteModel": {
+    "prefix": "mutationDel",
+    "body": [
+      "async delete${1:modelNameBig}(_, { id }, { models: { ${1:modelNameBig} } }) {",
+      "\ttry {",
+      "\t\tconst ${2:modelNameSmall} = await ${1:modelNameBig}.findByIdAndRemove(id).exec()",
+      "\t\treturn ${2:modelNameSmall} ? ${2:modelNameSmall}._id : null",
+      "\t} catch (error) {",
+      "\t\tthrow error",
+      "\t}",
+      "}"
+    ]
+  },
+  "queryModels": {
+    "prefix": "queryMany",
+    "body": [
+      "async ${1:modelNameSmall}s(_, __, { models: { ${2:modelNameBig} } }) {",
+      "\ttry {",
+      "\t\tconst ${1:modelNameSmall}s = await ${2:modelNameBig}.find({},\"id\")",
+      "\t\treturn ${1:modelNameSmall}s",
+      "\t} catch (error) {",
+      "\t\tthrow error",
+      "\t}",
+      "},"
+    ]
+  },
+  "queryModel": {
+    "prefix": "queryOne",
+    "body": [
+      "async ${1:modelNameSmall}(_, { id }, { models: { ${2:modelNameBig} } }) {",
+      "\ttry {",
+      "\t\tconst ${1:modelNameSmall} = await ${2:modelNameBig}.findById(id, \"id\").exec()",
+      "\t\treturn ${1:modelNameSmall}",
+      "\t} catch (error) {",
+      "\t\tthrow error",
+      "\t}",
+      "}"
+    ]
+  },
+  "resolverStarter": {
+    "prefix": "resolverStarter",
+    "body": [
+      "module.exports = {",
+      "\tQuery: {},",
+      "\tMutation: {},",
+      "\t${1:ModelNameBig}: {}",
+      "}"
+    ]
+  },
+  "resolverId": {
+    "prefix": "resolverId",
+    "body": [
+      "id(${1:modelNameSmall}) {",
+      "\treturn `${${1:modelNameSmall}._id}`",
+      "},"
+    ]
+  },
+  "graphqlStarter": {
+    "prefix": "graphqlStarter",
+    "body": [
+      "extend type Query {",
+      "\t${1:modelNameSmall}s: [${2:ModelNameBig}]",
+      "\t${1:modelNameSmall}(id: ID!): ${2:ModelNameBig}",
+      "}",
+
+      "extend type Mutation {",
+      "\tadd${2:ModelNameBig}(input: ${2:ModelNameBig}Input): ${2:ModelNameBig}",
+      "\tupdate${2:ModelNameBig}(id: ID!, input: ${2:ModelNameBig}Input): ${2:ModelNameBig}",
+      "\tdelete${2:ModelNameBig}(id: ID!): ID",
+      "}"
+    ]
+  },
+  "graphqlIndexjs": {
+    "prefix": "graphqlIndexjs",
+    "body": [
+      "import gqlLoader from \"../gqlLoader\"",
+      "import resolvers from \"./${1:modelNameSmall}.resolvers\"",
+      "import model from \"./${1:modelNameSmall}.model\"",
+      "",
+      "module.exports = {",
+      "\ttypeDefs: gqlLoader(\"./${1:modelNameSmall}/${1:modelNameSmall}.graphql\"),",
+      "\tmodel,",
+      "\tresolvers",
+      "}"
+    ]
+  },
+  "smartConsoleLog": {
+    "prefix": "consoleLogSmart",
+    "body": ["console.log('${1:variableName}', ${1:variableName})"]
+  },
+  "extraSmartConsoleLog": {
+    "prefix": "extraConsoleLog",
+    "body": ["console.log('${1:variableLabel}', ${2:variableName})"]
+  },
+  "pleaseInRussian": {
+    "prefix": "pls",
+    "body": ["Пожалуйста, "]
+  },
+  "loaderTemplate": {
+    "prefix": "loaderTemplate",
+    "body": [
+      "async ${1:subfieldName }(${2:modelNameSmall}, _, ctx) {",
+      "\tconst ${1:subfieldName }Id = ${2:modelNameSmall}.${1:subfieldName }",
+      "\tif (${1:subfieldName }Id) {",
+      "\t\tconst ${1:subfieldName } = await ctx.loaders.${1:subfieldName }Loader.load(${1:subfieldName  }Id)",
+      "\t\treturn ${1:subfieldName  }",
+      "\t}",
+      "\treturn null",
+      "},"
+    ]
+  }
+}

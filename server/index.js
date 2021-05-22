@@ -9,7 +9,6 @@ import expressValidator from 'express-validator'
 import passport from 'passport'
 import bodyParser from 'body-parser'
 
-
 // import corsOptions from './corsOptions'
 import apollo from './apollo'
 import fetchUrlRoutes from './fetchUrlRoutes'
@@ -59,7 +58,6 @@ app.use('/graphql', (req, res, next) => {
 const { httpServer, server } = apollo(app)
 fetchUrlRoutes(app)
 
-
 const PORT = process.env.PORT || 6001
 
 httpServer.listen(PORT, () => {
@@ -67,7 +65,7 @@ httpServer.listen(PORT, () => {
   console.log(
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
   )
-  // eslint-disable-next-line no-console  
+  // eslint-disable-next-line no-console
 })
 
 export default app

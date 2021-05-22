@@ -1,0 +1,56 @@
+type Approval {
+  user: User
+  status: String
+}
+
+input ApprovalInput {
+  user: ID
+  status: String
+}
+
+type Goal {
+  text: String
+  status: String
+  author: User
+}
+
+input GoalInput {
+  text: String
+  status: String
+  author: ID
+}
+
+type Stage {
+  id: ID!
+  name: String
+  thumbnail: String
+  title: String
+  progress: Int
+  text: String
+  approvals: [Approval]
+  goals: [Goal]
+  summary: String
+  nextStage: Stage
+}
+
+input StageInput {
+  name: String
+  thumbnail: String
+  title: String
+  progress: Int
+  text: String
+  approvals: [ApprovalInput]
+  goals: [GoalInput]
+  summary: String
+  nextStage: ID
+}
+
+extend type Query {
+  stages: [Stage]
+  stage(id: ID!): Stage
+}
+extend type Mutation {
+  addStage(input: StageInput): Stage
+  updateStage(id: ID!, input: StageInput): Stage
+  deleteStage(id: ID!): ID
+}

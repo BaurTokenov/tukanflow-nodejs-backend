@@ -5,6 +5,10 @@ import gqlLoader from './gqlLoader'
 
 import user from './user'
 import auth from './auth'
+import meeting from './meeting'
+import feature from './feature'
+import stage from './stage'
+
 require('./../passportHelper')(passport)
 
 const resolverMap = {
@@ -21,16 +25,38 @@ const serverConfig = {
   introspection: true,
   playground: true,
   tracing: true,
-  typeDefs: [gqlLoader('./index.graphql'), user.typeDefs, auth.typeDefs].join(
-    ' '
+  typeDefs: [
+    gqlLoader('./index.graphql'),
+    user.typeDefs,
+    auth.typeDefs,
+    meeting.typeDefs,
+    feature.typeDefs,
+    stage.typeDefs
+  ].join(' '),
+  resolvers: merge(
+    {},
+    user.resolvers,
+    auth.resolvers,
+    meeting.resolvers,
+    feature.resolvers,
+    stage.resolvers,
+    resolverMap
   ),
-  resolvers: merge({}, user.resolvers, auth.resolvers, resolverMap),
   context: ({ req, connection }) => {
     return {
       user: connection ? null : req.user,
       logout: connection ? function emptyFunction() {} : req.logout,
       models: {
-        User: user.model
+        User: user.model,
+        Meeting: meeting.model,
+        Feature: feature.model,
+        Stage: stage.model
+      },
+      loaders: {
+        meetingLoader: meeting.loader,
+        userLoader: user.loader,
+        featureLoader: feature.loader,
+        stageLoader: stage.loader
       }
     }
   }

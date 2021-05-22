@@ -1,0 +1,34 @@
+type TimeDetails {
+  dateTime: DateTime
+  timeZone: String
+}
+
+input TimeDetailsInput {
+  dateTime: DateTime
+  timeZone: String
+}
+
+type Meeting {
+  id: ID!
+  users: [User]
+  start: TimeDetails
+  end: TimeDetails
+  subject: String
+}
+
+input MeetingInput {
+  users: [ID]
+  start: TimeDetailsInput
+  end: TimeDetailsInput
+  subject: String
+}
+
+extend type Query {
+  meetings: [Meeting]
+  meeting(id: ID!): Meeting
+}
+extend type Mutation {
+  addMeeting(input: MeetingInput): Meeting
+  updateMeeting(id: ID!, input: MeetingInput): Meeting
+  deleteMeeting(id: ID!): ID
+}
