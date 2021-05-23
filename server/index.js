@@ -65,91 +65,102 @@ app.use('/graphql', (req, res, next) => {
 
 // Schedule a meeting
 app.post('/findmeeting', async (req, res) => {
-  let attendees = req.body
-  console.log('body', req.body)
-  console.log({
-    attendees
-  })
-  attendees = attendees.map(x => ({
-    emailAddress: {
-      address: x
-    }
-  }))
+  try {
+    let attendees = req.body
+    console.log('body', req.body)
+    console.log({
+      attendees
+    })
+    attendees = attendees.map(x => ({
+      emailAddress: {
+        address: x
+      }
+    }))
 
-  console.log({ ACCESS_TOKEN })
-  const meeting_obj = {
-    attendees: attendees,
-    meetingDuration: 'PT1H'
+    console.log({ ACCESS_TOKEN })
+    const meeting_obj = {
+      attendees: attendees,
+      meetingDuration: 'PT1H'
+    }
+    //console.log(meeting_obj)
+    const find_meeting_resp = await axios({
+      url: `${GRAPH_URI}/me/findMeetingTimes`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`
+      },
+      data: meeting_obj
+    })
+    let top_suggestions = find_meeting_resp.data[
+      'meetingTimeSuggestions'
+    ].slice(0, 5)
+    top_suggestions = top_suggestions.map(x => x['meetingTimeSlot'])
+    res.send(top_suggestions)
+  } catch (error) {
+    res.status(500).send('server error')
   }
-  //console.log(meeting_obj)
-  const find_meeting_resp = await axios({
-    url: `${GRAPH_URI}/me/findMeetingTimes`,
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`
-    },
-    data: meeting_obj
-  })
-  let top_suggestions = find_meeting_resp.data['meetingTimeSuggestions'].slice(
-    0,
-    5
-  )
-  top_suggestions = top_suggestions.map(x => x['meetingTimeSlot'])
-  res.send(top_suggestions)
 })
 
 app.post('/schedulemeeting', async (req, res) => {
-  req.body['attendees'] = req.body['attendees'].map(x => ({
-    emailAddress: { address: x }
-  }))
-  const data = req.body
-  console.log(data)
-  const _ = await axios({
-    url: `${GRAPH_URI}/me/events`,
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`
-    },
-    data: data
-  }).catch(function(error) {
-    console.log(error)
-  })
-  res.send('Meeting successfully arranged')
+  try {
+    req.body['attendees'] = req.body['attendees'].map(x => ({
+      emailAddress: { address: x }
+    }))
+    const data = req.body
+    console.log(data)
+    const _ = await axios({
+      url: `${GRAPH_URI}/me/events`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`
+      },
+      data: data
+    }).catch(function(error) {
+      console.log(error)
+    })
+    res.send('Meeting successfully arranged')
+  } catch (error) {
+    res.status(500).send('server error')
+  }
 })
 
 app.post('/invite', async (req, res) => {
-  req.body['attendees'] = req.body['attendees'].map(x => ({
-    emailAddress: { address: x }
-  }))
-  const start_time = new Date(req.body['start']['dateTime'])
-  const end_time = new Date(req.body['end']['dateTime'])
+  try {
+    req.body['attendees'] = req.body['attendees'].map(x => ({
+      emailAddress: { address: x }
+    }))
+    const start_time = new Date(req.body['start']['dateTime'])
+    const end_time = new Date(req.body['end']['dateTime'])
 
-  const message = {
-    message: {
-      subject: `Meeting Schedule: ${req.body['subject']}`,
-      body: {
-        contentType: 'Text',
-        content: `
-            The meeting schedule
-
-            Start time: ${start_time.toDateString()} ${start_time.toTimeString()}
-            End time: ${end_time.toDateString()} ${end_time.toTimeString()}
-          `
-      },
-      toRecipients: req.body['attendees']
+    const message = {
+      message: {
+        subject: `Meeting Schedule: ${req.body['subject']}`,
+        body: {
+          contentType: 'Text',
+          content: `
+              The meeting schedule
+  
+              Start time: ${start_time.toDateString()} ${start_time.toTimeString()}
+              End time: ${end_time.toDateString()} ${end_time.toTimeString()}
+            `
+        },
+        toRecipients: req.body['attendees']
+      }
     }
+    const _ = await axios({
+      url: `${GRAPH_URI}/me/sendMail`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`
+      },
+      data: message
+    }).catch(function(error) {
+      console.log(error)
+    })
+    res.send('Invitation emails are sent out')
+  } catch (error) {
+    res.status(500).send('server error')
   }
-  const _ = await axios({
-    url: `${GRAPH_URI}/me/sendMail`,
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`
-    },
-    data: message
-  }).catch(function(error) {
-    console.log(error)
-  })
-  res.send('Invitation emails are sent out')
 })
 
 const { httpServer, server } = apollo(app)
