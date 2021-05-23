@@ -16,7 +16,7 @@ import fetchUrlRoutes from './fetchUrlRoutes'
 import { NODE_ENV, MONGO_URL } from './envVariables'
 
 // ! CHANGE IT OFTEN
-let ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJub25jZSI6IkxQaE9IaGtKY2oxQnpjNUpaUVRQUDEzWHlYSmpDQm5uRUw5TFJjSHlJV1EiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIvIiwiaWF0IjoxNjIxNzExMDc1LCJuYmYiOjE2MjE3MTEwNzUsImV4cCI6MTYyMTcxNDk3NSwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsidXJuOnVzZXI6cmVnaXN0ZXJzZWN1cml0eWluZm8iLCJ1cm46bWljcm9zb2Z0OnJlcTEiLCJ1cm46bWljcm9zb2Z0OnJlcTIiLCJ1cm46bWljcm9zb2Z0OnJlcTMiLCJjMSIsImMyIiwiYzMiLCJjNCIsImM1IiwiYzYiLCJjNyIsImM4IiwiYzkiLCJjMTAiLCJjMTEiLCJjMTIiLCJjMTMiLCJjMTQiLCJjMTUiLCJjMTYiLCJjMTciLCJjMTgiLCJjMTkiLCJjMjAiLCJjMjEiLCJjMjIiLCJjMjMiLCJjMjQiLCJjMjUiXSwiYWlvIjoiQVNRQTIvOFRBQUFBT2VUWmFxaGorWnRaSzZxSlQyQnQ2SWVReUxHNVJieEgxcVptT1dXNFd4VT0iLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IkdyYXBoIGV4cGxvcmVyIChvZmZpY2lhbCBzaXRlKSIsImFwcGlkIjoiZGU4YmM4YjUtZDlmOS00OGIxLWE4YWQtYjc0OGRhNzI1MDY0IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJUYWxpcG92IiwiZ2l2ZW5fbmFtZSI6IkFudWFyIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiOC4zOC4xNzIuNDUiLCJuYW1lIjoiQW51YXIgVGFsaXBvdiIsIm9pZCI6ImUyYmFhYzU0LWU1NzItNGU1NS1hZjIyLTNmNjUzYjRhZjRmZSIsInBsYXRmIjoiNSIsInB1aWQiOiIxMDAzMjAwMTQ0RTMwMTY4IiwicmgiOiIwLkFYRUFEOGU3a3RCeHMwNmJidUlKR3JrZ203WElpOTc1MmJGSXFLMjNTTnB5VUdSeEFNMC4iLCJzY3AiOiJDYWxlbmRhcnMuUmVhZCBDYWxlbmRhcnMuUmVhZC5TaGFyZWQgQ2FsZW5kYXJzLlJlYWRXcml0ZSBDYWxlbmRhcnMuUmVhZFdyaXRlLlNoYXJlZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzdWIiOiI3YlpiaGtHWHdrdHNVaVYwU1VsbldvZ0ZxcHVHckNZOWdVaFFJaXNmWlFRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiOTJiYmM3MGYtNzFkMC00ZWIzLTliNmUtZTIwOTFhYjkyMDliIiwidW5pcXVlX25hbWUiOiJhbnVhckB0dWthbmdhbWJpdC5vbm1pY3Jvc29mdC5jb20iLCJ1cG4iOiJhbnVhckB0dWthbmdhbWJpdC5vbm1pY3Jvc29mdC5jb20iLCJ1dGkiOiJnZWFBUjA4dDBFZW1YQTZQZEVuaEFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwieG1zX3N0Ijp7InN1YiI6Ik0tYUlidlU1aE1fc0ZXWDlneWJoYUZ1SjQ3cEUyWktJNTIyNk9YU2lKU1UifSwieG1zX3RjZHQiOjE2MjE2OTUyNDB9.Ox4BEoZWVjCzdn5_bAU4JqB9hGY2sgQ8kiiv4DEed10c5Q2KrjEzjxy8570NAb6vU5tNWg_DSpYQ0VLFLVwlOavLx16tHcFcT0aKFUBKuv7A_E7P8pH_FzDffeOiAcUFl7f2vcOLelOUyk1xiSsCtiYcRjcyiJwRPHYn-L-wCKGUqOf4JQK5o12tP7zbDyXhNA8T3teAca-zb7RtMMNeiYtSMCMtO2u3QLxQooehL29cQrjSeV1SeCJBHam2hujRXQCEPOeTcAlV7g9l3JbbfgmaC1wGdMBbKZtJIMVDc5aSAdkU_sSpWdwAd9FkCKZiV2b1pyj6ddx6tgfGAUeaiQ"
+let ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJub25jZSI6ImZpZVlleXpUcmxSdEY0d0J2Y0hVeHJaN2RnX3dPRXdGeVRIOXVEeGRJSTgiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIvIiwiaWF0IjoxNjIxNzQyNDEyLCJuYmYiOjE2MjE3NDI0MTIsImV4cCI6MTYyMTc0NjMxMiwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsidXJuOnVzZXI6cmVnaXN0ZXJzZWN1cml0eWluZm8iLCJ1cm46bWljcm9zb2Z0OnJlcTEiLCJ1cm46bWljcm9zb2Z0OnJlcTIiLCJ1cm46bWljcm9zb2Z0OnJlcTMiLCJjMSIsImMyIiwiYzMiLCJjNCIsImM1IiwiYzYiLCJjNyIsImM4IiwiYzkiLCJjMTAiLCJjMTEiLCJjMTIiLCJjMTMiLCJjMTQiLCJjMTUiLCJjMTYiLCJjMTciLCJjMTgiLCJjMTkiLCJjMjAiLCJjMjEiLCJjMjIiLCJjMjMiLCJjMjQiLCJjMjUiXSwiYWlvIjoiQVNRQTIvOFRBQUFBQjlCdHdLUlgwYk41cjFyOXJMdTgweDdBbFlqUnRVTWFCV25PaUdPTktzdz0iLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IkdyYXBoIGV4cGxvcmVyIChvZmZpY2lhbCBzaXRlKSIsImFwcGlkIjoiZGU4YmM4YjUtZDlmOS00OGIxLWE4YWQtYjc0OGRhNzI1MDY0IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJUYWxpcG92IiwiZ2l2ZW5fbmFtZSI6IkFudWFyIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiOC4zNy40My43IiwibmFtZSI6IkFudWFyIFRhbGlwb3YiLCJvaWQiOiJlMmJhYWM1NC1lNTcyLTRlNTUtYWYyMi0zZjY1M2I0YWY0ZmUiLCJwbGF0ZiI6IjUiLCJwdWlkIjoiMTAwMzIwMDE0NEUzMDE2OCIsInJoIjoiMC5BWEVBRDhlN2t0QnhzMDZiYnVJSkdya2dtN1hJaTk3NTJiRklxSzIzU05weVVHUnhBTTAuIiwic2NwIjoiQ2FsZW5kYXJzLlJlYWQgQ2FsZW5kYXJzLlJlYWQuU2hhcmVkIENhbGVuZGFycy5SZWFkV3JpdGUgQ2FsZW5kYXJzLlJlYWRXcml0ZS5TaGFyZWQgb3BlbmlkIHByb2ZpbGUgVXNlci5SZWFkIGVtYWlsIE1haWwuU2VuZCIsInNpZ25pbl9zdGF0ZSI6WyJrbXNpIl0sInN1YiI6IjdiWmJoa0dYd2t0c1VpVjBTVWxuV29nRnFwdUdyQ1k5Z1VoUUlpc2ZaUVEiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiQVMiLCJ0aWQiOiI5MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIiLCJ1bmlxdWVfbmFtZSI6ImFudWFyQHR1a2FuZ2FtYml0Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImFudWFyQHR1a2FuZ2FtYml0Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IjRtbXZVRFh6T1V1c2dUdVRlejgwQVEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfc3QiOnsic3ViIjoiTS1hSWJ2VTVoTV9zRldYOWd5YmhhRnVKNDdwRTJaS0k1MjI2T1hTaUpTVSJ9LCJ4bXNfdGNkdCI6MTYyMTY5NTI0MH0.VdHtDqgoMQIfCLbNM4F_KiATNFPPx7NqlufNwevcLGq-XRIBmBMGmiRypD9hFKj1N23xbjhZ-Ba-IdPL4m9slLp42UOQH-_X3UdZscG1I6OUpPCVJxfJVVjityAu8k0GrVOQNz2a8O90sXwAYD5SUDBTBkXC9D6fZIg6yKjqOwPrGk7TOYRkXs1nVDWr56AdKQ1PXaz2gYMNXvW1QgMXzStty1Vzu6-U9ESk79bMPYRS2CqB_TE-Z8qrwFjHL-EWEK7KpbXTUirFbd7HrXmVjHdmYcu6B9rDQilwluZ-hJ48SPZT7mGnQjcFgO8v8EPDGIw3ffxPtkjsOrafexgXxg"
 let GRAPH_URI = "https://graph.microsoft.com/v1.0"
 
 const app = express()
@@ -64,37 +64,80 @@ app.use('/graphql', (req, res, next) => {
 // Email and calendar management
 
 // Schedule a meeting
-app.post('/meeting', async (req, res) => {
-  const attendees = req.body;
+app.post('/findmeeting', async (req, res) => {
+  let attendees = req.body;
+  attendees = attendees.map(x => ({
+    "emailAddress": {
+      "address": x
+    }
+  }))
+  const meeting_obj = {
+    "attendees": attendees,
+    "meetingDuration": "PT1H"
+  }
+  //console.log(meeting_obj)
   const find_meeting_resp = await axios({
     url: `${GRAPH_URI}/me/findMeetingTimes`,
     method: 'post',
     headers: {
       'Authorization': `Bearer ${ACCESS_TOKEN}`
     },
-    data: JSON.stringify(attendees)
+    data: meeting_obj
   })
+  let top_suggestions = find_meeting_resp.data["meetingTimeSuggestions"].slice(0, 5)
+  top_suggestions = top_suggestions.map(x => x["meetingTimeSlot"])
+  res.send(top_suggestions)
+})
 
-  // Extract data
-  const meeting_suggestion = find_meeting_resp.data["meetingTimeSuggestions"][0]
-  //console.log(meeting_suggestion)
-  const start_time_obj = meeting_suggestion["meetingTimeSlot"]["start"]
-  const end_time_obj = meeting_suggestion["meetingTimeSlot"]["end"]
-  // Assume both start and end timezones are the same
-  const subject = "Meeting for something"
+
+app.post('/schedulemeeting', async (req, res) => {
+  req.body["attendees"] = req.body["attendees"].map(
+    x => ({ "emailAddress": { "address": x } })
+  )
+  const data = req.body
+  console.log(data)
   const _ = await axios({
     url: `${GRAPH_URI}/me/events`,
     method: 'post',
     headers: {
       'Authorization': `Bearer ${ACCESS_TOKEN}`
     },
-    data: {
-      "subject": subject,
-      "start": start_time_obj,
-      "end": end_time_obj
-    }
+    data: data
   }).catch(function (error) { console.log(error) })
   res.send('Meeting successfully arranged')
+})
+
+app.post('/invite', async (req, res) => {
+  req.body["attendees"] = req.body["attendees"].map(
+    x => ({ "emailAddress": { "address": x } })
+  )
+  const start_time = new Date(req.body["start"]["dateTime"])
+  const end_time = new Date(req.body["end"]["dateTime"])
+
+  const message = {
+    "message": {
+      "subject": `Meeting Schedule: ${req.body["subject"]}`,
+      "body": {
+        "contentType": "Text",
+        "content": `
+            The meeting schedule
+
+            Start time: ${start_time.toDateString()} ${start_time.toTimeString()}
+            End time: ${end_time.toDateString()} ${end_time.toTimeString()}
+          `
+      },
+      "toRecipients": req.body["attendees"]
+    }
+  }
+  const _ = await axios({
+    url: `${GRAPH_URI}/me/sendMail`,
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${ACCESS_TOKEN}`
+    },
+    data: message
+  }).catch(function (error) { console.log(error) })
+  res.send('Invitation emails are sent out')
 })
 
 const { httpServer, server } = apollo(app)
