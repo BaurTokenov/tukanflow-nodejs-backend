@@ -10,7 +10,7 @@ module.exports = {
     },
     async stage(_, { id }, { models: { Stage } }) {
       try {
-        const stage = await Stage.findById(id, 'id').exec()
+        const stage = await Stage.findById(id).exec()
         return stage
       } catch (error) {
         throw error

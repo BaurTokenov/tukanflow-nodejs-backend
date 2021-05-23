@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/80c1be21-05d5-4ede-b5d1-3609cd32a3bb/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/tukanflow-nodejs-backend",
+    "appService.deploySubpath": "."
+}
