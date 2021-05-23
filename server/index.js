@@ -16,7 +16,7 @@ import fetchUrlRoutes from './fetchUrlRoutes'
 import { NODE_ENV, MONGO_URL } from './envVariables'
 
 // ! CHANGE IT OFTEN
-let ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJub25jZSI6InRtRGVCZ1RuT1hRLW1FX2xqa0M5WlgyNUNWOHlISXo2YVYyRWo2bXBoRDgiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIvIiwiaWF0IjoxNjIxNzQwMjA3LCJuYmYiOjE2MjE3NDAyMDcsImV4cCI6MTYyMTc0NDEwNywiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsidXJuOnVzZXI6cmVnaXN0ZXJzZWN1cml0eWluZm8iLCJ1cm46bWljcm9zb2Z0OnJlcTEiLCJ1cm46bWljcm9zb2Z0OnJlcTIiLCJ1cm46bWljcm9zb2Z0OnJlcTMiLCJjMSIsImMyIiwiYzMiLCJjNCIsImM1IiwiYzYiLCJjNyIsImM4IiwiYzkiLCJjMTAiLCJjMTEiLCJjMTIiLCJjMTMiLCJjMTQiLCJjMTUiLCJjMTYiLCJjMTciLCJjMTgiLCJjMTkiLCJjMjAiLCJjMjEiLCJjMjIiLCJjMjMiLCJjMjQiLCJjMjUiXSwiYWlvIjoiRTJaZ1lNZzllaVRyWExEUjdiempyVFl5Sm9HcW5uS3BzL2R4SDVHSW5SL1VzOFJncmpFQSIsImFtciI6WyJwd2QiXSwiYXBwX2Rpc3BsYXluYW1lIjoiR3JhcGggZXhwbG9yZXIgKG9mZmljaWFsIHNpdGUpIiwiYXBwaWQiOiJkZThiYzhiNS1kOWY5LTQ4YjEtYThhZC1iNzQ4ZGE3MjUwNjQiLCJhcHBpZGFjciI6IjAiLCJmYW1pbHlfbmFtZSI6IlRhbGlwb3YiLCJnaXZlbl9uYW1lIjoiQW51YXIiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI4LjM3LjQzLjciLCJuYW1lIjoiQW51YXIgVGFsaXBvdiIsIm9pZCI6ImUyYmFhYzU0LWU1NzItNGU1NS1hZjIyLTNmNjUzYjRhZjRmZSIsInBsYXRmIjoiNSIsInB1aWQiOiIxMDAzMjAwMTQ0RTMwMTY4IiwicmgiOiIwLkFYRUFEOGU3a3RCeHMwNmJidUlKR3JrZ203WElpOTc1MmJGSXFLMjNTTnB5VUdSeEFNMC4iLCJzY3AiOiJDYWxlbmRhcnMuUmVhZCBDYWxlbmRhcnMuUmVhZC5TaGFyZWQgQ2FsZW5kYXJzLlJlYWRXcml0ZSBDYWxlbmRhcnMuUmVhZFdyaXRlLlNoYXJlZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzdWIiOiI3YlpiaGtHWHdrdHNVaVYwU1VsbldvZ0ZxcHVHckNZOWdVaFFJaXNmWlFRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiOTJiYmM3MGYtNzFkMC00ZWIzLTliNmUtZTIwOTFhYjkyMDliIiwidW5pcXVlX25hbWUiOiJhbnVhckB0dWthbmdhbWJpdC5vbm1pY3Jvc29mdC5jb20iLCJ1cG4iOiJhbnVhckB0dWthbmdhbWJpdC5vbm1pY3Jvc29mdC5jb20iLCJ1dGkiOiItR0xsMDd4N1lrR1lqZXRLRGFRUUFRIiwidmVyIjoiMS4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwieG1zX3N0Ijp7InN1YiI6Ik0tYUlidlU1aE1fc0ZXWDlneWJoYUZ1SjQ3cEUyWktJNTIyNk9YU2lKU1UifSwieG1zX3RjZHQiOjE2MjE2OTUyNDB9.B6axD2_sFnsGPx6m30qNb3euM69qlv72dnSd7yGq6b27fIyvtAuwNrmOl3sFTKpzt9DC3U9EoSHMh3J53h4B0bmiiNBTtVQDYjXZwZaEwVLkWq00KFfYvX2umnyCFuEcId6BQMELOqOGrq6htvWmoG8GTOLo9BUR_wJervST2P0PdE1HmT-2sLdW1BMWHHy6cSNZWnHMKX4YwG3PljEPlHwFyn5aQ0nwMUCwt-q3tf_JWTQ8RUkdf-iQNYMmNOSVScs9UxqJVo-cD0KY5QhjG-hwwzwRFsNYCPU7jBjDXOh-EeqtdESv8nLmpsukU4gXXD8eiJpFVMeO521qEd_FZw"
+let ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJub25jZSI6ImZpZVlleXpUcmxSdEY0d0J2Y0hVeHJaN2RnX3dPRXdGeVRIOXVEeGRJSTgiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIvIiwiaWF0IjoxNjIxNzQyNDEyLCJuYmYiOjE2MjE3NDI0MTIsImV4cCI6MTYyMTc0NjMxMiwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsidXJuOnVzZXI6cmVnaXN0ZXJzZWN1cml0eWluZm8iLCJ1cm46bWljcm9zb2Z0OnJlcTEiLCJ1cm46bWljcm9zb2Z0OnJlcTIiLCJ1cm46bWljcm9zb2Z0OnJlcTMiLCJjMSIsImMyIiwiYzMiLCJjNCIsImM1IiwiYzYiLCJjNyIsImM4IiwiYzkiLCJjMTAiLCJjMTEiLCJjMTIiLCJjMTMiLCJjMTQiLCJjMTUiLCJjMTYiLCJjMTciLCJjMTgiLCJjMTkiLCJjMjAiLCJjMjEiLCJjMjIiLCJjMjMiLCJjMjQiLCJjMjUiXSwiYWlvIjoiQVNRQTIvOFRBQUFBQjlCdHdLUlgwYk41cjFyOXJMdTgweDdBbFlqUnRVTWFCV25PaUdPTktzdz0iLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IkdyYXBoIGV4cGxvcmVyIChvZmZpY2lhbCBzaXRlKSIsImFwcGlkIjoiZGU4YmM4YjUtZDlmOS00OGIxLWE4YWQtYjc0OGRhNzI1MDY0IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJUYWxpcG92IiwiZ2l2ZW5fbmFtZSI6IkFudWFyIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiOC4zNy40My43IiwibmFtZSI6IkFudWFyIFRhbGlwb3YiLCJvaWQiOiJlMmJhYWM1NC1lNTcyLTRlNTUtYWYyMi0zZjY1M2I0YWY0ZmUiLCJwbGF0ZiI6IjUiLCJwdWlkIjoiMTAwMzIwMDE0NEUzMDE2OCIsInJoIjoiMC5BWEVBRDhlN2t0QnhzMDZiYnVJSkdya2dtN1hJaTk3NTJiRklxSzIzU05weVVHUnhBTTAuIiwic2NwIjoiQ2FsZW5kYXJzLlJlYWQgQ2FsZW5kYXJzLlJlYWQuU2hhcmVkIENhbGVuZGFycy5SZWFkV3JpdGUgQ2FsZW5kYXJzLlJlYWRXcml0ZS5TaGFyZWQgb3BlbmlkIHByb2ZpbGUgVXNlci5SZWFkIGVtYWlsIE1haWwuU2VuZCIsInNpZ25pbl9zdGF0ZSI6WyJrbXNpIl0sInN1YiI6IjdiWmJoa0dYd2t0c1VpVjBTVWxuV29nRnFwdUdyQ1k5Z1VoUUlpc2ZaUVEiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiQVMiLCJ0aWQiOiI5MmJiYzcwZi03MWQwLTRlYjMtOWI2ZS1lMjA5MWFiOTIwOWIiLCJ1bmlxdWVfbmFtZSI6ImFudWFyQHR1a2FuZ2FtYml0Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImFudWFyQHR1a2FuZ2FtYml0Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IjRtbXZVRFh6T1V1c2dUdVRlejgwQVEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfc3QiOnsic3ViIjoiTS1hSWJ2VTVoTV9zRldYOWd5YmhhRnVKNDdwRTJaS0k1MjI2T1hTaUpTVSJ9LCJ4bXNfdGNkdCI6MTYyMTY5NTI0MH0.VdHtDqgoMQIfCLbNM4F_KiATNFPPx7NqlufNwevcLGq-XRIBmBMGmiRypD9hFKj1N23xbjhZ-Ba-IdPL4m9slLp42UOQH-_X3UdZscG1I6OUpPCVJxfJVVjityAu8k0GrVOQNz2a8O90sXwAYD5SUDBTBkXC9D6fZIg6yKjqOwPrGk7TOYRkXs1nVDWr56AdKQ1PXaz2gYMNXvW1QgMXzStty1Vzu6-U9ESk79bMPYRS2CqB_TE-Z8qrwFjHL-EWEK7KpbXTUirFbd7HrXmVjHdmYcu6B9rDQilwluZ-hJ48SPZT7mGnQjcFgO8v8EPDGIw3ffxPtkjsOrafexgXxg"
 let GRAPH_URI = "https://graph.microsoft.com/v1.0"
 
 const app = express()
@@ -105,6 +105,39 @@ app.post('/schedulemeeting', async (req, res) => {
     data: data
   }).catch(function (error) { console.log(error) })
   res.send('Meeting successfully arranged')
+})
+
+app.post('/invite', async (req, res) => {
+  req.body["attendees"] = req.body["attendees"].map(
+    x => ({ "emailAddress": { "address": x } })
+  )
+  const start_time = new Date(req.body["start"]["dateTime"])
+  const end_time = new Date(req.body["end"]["dateTime"])
+
+  const message = {
+    "message": {
+      "subject": `Meeting Schedule: ${req.body["subject"]}`,
+      "body": {
+        "contentType": "Text",
+        "content": `
+            The meeting schedule
+
+            Start time: ${start_time.toDateString()} ${start_time.toTimeString()}
+            End time: ${end_time.toDateString()} ${end_time.toTimeString()}
+          `
+      },
+      "toRecipients": req.body["attendees"]
+    }
+  }
+  const _ = await axios({
+    url: `${GRAPH_URI}/me/sendMail`,
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${ACCESS_TOKEN}`
+    },
+    data: message
+  }).catch(function (error) { console.log(error) })
+  res.send('Invitation emails are sent out')
 })
 
 const { httpServer, server } = apollo(app)
