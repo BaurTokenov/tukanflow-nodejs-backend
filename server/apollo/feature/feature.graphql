@@ -1,11 +1,13 @@
 type Feature {
   id: ID!
   name: String
+  thumbnailURL: String
   stages: [Stage]
 }
 
 input FeatureInput {
   name: String
+  thumbnailURL: String
   stages: [ID]
 }
 

@@ -34,6 +34,7 @@ module.exports = {
           throw new ApolloError(err)
         }
       }
+      return null
     },
     updateUser: async (_, { id, input }, ctx) => {
       try {

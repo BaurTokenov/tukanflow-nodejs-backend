@@ -5,6 +5,7 @@ const { Schema } = mongoose
 const FeatureSchema = new Schema(
   {
     name: String,
+    thumbnailURL: String,
     stages: [{ type: Schema.Types.ObjectId, ref: 'Stage' }]
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
