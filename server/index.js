@@ -28,7 +28,7 @@ mongoose.connect(mongoUrl, {
   useFindAndModify: false,
   useUnifiedTopology: true
 })
-
+app.use(cors())
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
